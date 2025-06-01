@@ -26,3 +26,7 @@ def update_post(post_id, title, description, category):
                                 category = ?
                                 WHERE id = ?"""
     db.execute(sql, [title, description, category, post_id])
+
+def remove_post(post_id):
+    sql = """DELETE FROM posts WHERE id = ?"""
+    db.execute(sql, [post_id])

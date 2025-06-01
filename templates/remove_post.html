@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Postauksen poisto</title>
+</head>
+
+<body>
+    <h1>Postauksen poisto</h1>
+    <p>Ilmoitus: {{ post.title }} </p>
+    <p>Haluatko varmasti poistaa tämän postauksen?</p>
+  <form action="/remove_post/{{ post.id }}" method="post">
+    <input type="submit" name="remove" value="Poista postaus">
+    <input type="submit" name="back" value="Palaa takaisin">
+  </form>
+</body>
+
+</html>
