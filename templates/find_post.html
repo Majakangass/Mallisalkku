@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Etsi postaus</title>
+</head>
+
+<body>
+    <h1>Etsi postaus</h1>
+
+    <form action="/find_post" method="get">
+    <p>
+    Hakusana: <input type="text" name="query" value="{{ query }}">
+    </p>
+    <input type="submit" value="Lähetä">
+    </form>
+
+    <p>
+        <a href="/">Takaisin</a>
+    </p>
+
+    {% if query %}
+    <h2>Tulokset</h2>
+
+    <ul>
+        {% for post in results %}
+        <li><a href="/post/{{ post.id }}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+
+</html>
