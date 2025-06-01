@@ -18,9 +18,18 @@
     <a href="/register">Rekisteröidy</a>
     <a href="/logout">Kirjaudu ulos</a>
   </p>
+
   <p>
     <a href="/new_post">Uusi postaus</a>
   </p>
+
+  <h2>Lisätyt salkut</h2>
+
+  <ul>
+    {% for post in posts %}
+    <li><a href="/post/{{ post.id }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
   <p>
 
 </html>
