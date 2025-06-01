@@ -9,7 +9,7 @@
     <h1>Mallisalkku</h1>
   {% if session.username %}
   <p>
-    Olet kirjautunut nimellä {{ session.username }}
+    Olet kirjautunut nimellä {{ session.username }}, id-numerosi on {{ session.user_id }}
   </p>
   {% endif %}
 
@@ -17,6 +17,9 @@
     <a href="/login">Kirjaudu sisään</a>
     <a href="/register">Rekisteröidy</a>
     <a href="/logout">Kirjaudu ulos</a>
+  </p>
+  <p>
+    <a href="/new_post">Uusi postaus</a>
   </p>
   <p>
 
