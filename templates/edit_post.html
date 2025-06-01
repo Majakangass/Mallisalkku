@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Postauksen muokkaus</title>
+</head>
+
+<body>
+    <h1>Postauksen muokkaus</h1>
+  <form action="/update_post" method="post">
+    <p>
+      Otsikko: <br />
+      <input type="text" name="title" value="{{ post.title }}"/>
+    </p>
+    <p>
+      Kuvaus: <br />
+      <textarea name="description" rows="8" cols="60">{{ post.description }}</textarea>  
+    </p>
+    <p>
+        Kategoria: <br />
+        <input type="text" name="category" value="{{post.category}}"/>
+      </p>    
+    <input type="hidden" name="post_id" value="{{ post.id }}" />
+    <input type="submit" value="Päivitä postaus" />
+  </form>
+</body>
+
+</html>
