@@ -14,13 +14,19 @@
   {% endif %}
 
   <p>
+    {% if not session.username %}
     <a href="/login">Kirjaudu sisään</a>
     <a href="/register">Rekisteröidy</a>
+    {% endif %}
+    {% if session.username %}
     <a href="/logout">Kirjaudu ulos</a>
+    {% endif %}
   </p>
 
   <p>
+    {% if session.username %}
     <a href="/new_post">Uusi postaus</a>
+    {% endif %}
     <a href="/find_post">Etsi postaus</a>
   </p>
 

@@ -38,8 +38,14 @@ def new_post():
 @app.route("/create_post", methods=["POST"])
 def create_post():
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) >1000:
+        abort(403)
     category = request.form["category"]
+    if not category.isalpha():
+        abort(403)
     user_id = session["user_id"]
 
     posts.add_post(title, description, category, user_id)
