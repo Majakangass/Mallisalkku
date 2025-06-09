@@ -75,6 +75,7 @@ def create_post():
 
 @app.route("/edit_post/<int:post_id>")
 def edit_post(post_id):
+    require_login()
     post = posts.get_post(post_id)
     if not post:
         abort(404)
@@ -84,6 +85,7 @@ def edit_post(post_id):
 
 @app.route("/update_post", methods=["POST"])
 def update_post():
+    require_login()
     post_id = request.form["post_id"]
     post = posts.get_post(post_id)
     if not post:
@@ -107,6 +109,7 @@ def update_post():
 
 @app.route("/remove_post/<int:post_id>", methods=["GET", "POST"])
 def remove_post(post_id):
+    require_login()
     post = posts.get_post(post_id)
     if not post:
         abort(404)
