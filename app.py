@@ -41,7 +41,8 @@ def show_post(post_id):
     post = posts.get_post(post_id)
     if not post:
         abort(404)
-    return render_template("show_post.html", post=post)
+    classes = posts.get_classes(post_id)
+    return render_template("show_post.html", post=post, classes=classes)
 
 @app.route("/new_post")
 def new_post():
@@ -60,7 +61,15 @@ def create_post():
         abort(403)
     user_id = session["user_id"]
 
-    posts.add_post(title, description, category, user_id)
+    classes = []
+    strategy = request.form["strategy"]
+    if strategy:
+        classes.append(("Sijoitusstrategia", strategy))
+    rate = request.form["rate"]
+    if rate:
+        classes.append(("Vuosituotto tavoite", rate))
+
+    posts.add_post(title, description, category, user_id, classes)
 
     return redirect("/")
 
