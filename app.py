@@ -5,14 +5,27 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
 import posts
+import users
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
+
+def require_login():
+    if "user_id" not in session:
+        abort(403)
 
 @app.route("/")
 def index():
     all_posts = posts.get_posts()
     return render_template("index.html", posts=all_posts)
+
+@app.route("/user/<int:user_id>")
+def show_user(user_id):
+    user = users.get_user(user_id)
+    if not user:
+        abort(404)
+    posts = users.get_posts(user_id)
+    return render_template("show_user.html", user=user, posts=posts)
 
 @app.route("/find_post")
 def find_post():
