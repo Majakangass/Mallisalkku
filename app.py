@@ -46,10 +46,13 @@ def show_post(post_id):
 
 @app.route("/new_post")
 def new_post():
-    return render_template("new_post.html")
+    require_login()
+    classes = posts.get_all_classes()
+    return render_template("new_post.html", classes=classes)
 
 @app.route("/create_post", methods=["POST"])
 def create_post():
+    require_login()
     title = request.form["title"]
     if not title or len(title) > 50:
         abort(403)
@@ -62,13 +65,10 @@ def create_post():
     user_id = session["user_id"]
 
     classes = []
-    strategy = request.form["strategy"]
-    if strategy:
-        classes.append(("Sijoitusstrategia", strategy))
-    rate = request.form["rate"]
-    if rate:
-        classes.append(("Vuosituotto tavoite", rate))
-
+    for entry in request.form.getlist("classes"):
+        if entry:
+            parts = entry.split(":")
+            classes.append((parts[0], parts[1]))
     posts.add_post(title, description, category, user_id, classes)
 
     return redirect("/")

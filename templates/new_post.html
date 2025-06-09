@@ -20,28 +20,17 @@
         Kategoria: <br />
         <input type="text" name="category" pattern="^[A-Za-z]+$" required/>
       </p>
+      {% for class in classes %}
       <p>
-        Sijoitusstrategia: <br />
-        <select name="strategy">
-          <option value="">[valitse]</option>
-          <option value="kasvuyhtiöt">kasvuyhtiöt</option>
-          <option value="arvoyhtiöt">arvoyhtiöt</option>
-          <option value="indeksipohjainen">indeksipohjainen</option>
-          <option value="tuottohakuinen">tuottohakuinen</option>
-          <option value="spekulatiivinen">spekulatiivinen</option>
-          <option value="hybridi">hybridi</option>
+        {{ class }}: <br />
+        <select name="classes">
+          <option value="">(valitse)</option>
+        {% for option in classes[class]%}
+        <option value=" {{ class }}:{{ option }}">{{ option }}</option>
+        {% endfor %}
         </select>
       </p>
-      <p>
-        Vuosituotto tavoite: <br />
-        <select name="rate">
-          <option value="">[valitse]</option>
-          <option value="2-4%">[2-4%]</option>
-          <option value="4-7%">[4-7%]</option>
-          <option value="7-10%">[7-10%]</option>
-          <option value=">10%">[>10%]</option>
-        </select>
-      </p>
+      {% endfor %}
     <input type="submit" value="Luo postaus" />
   </form>
 </body>
