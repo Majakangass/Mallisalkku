@@ -64,11 +64,16 @@ def create_post():
         abort(403)
     user_id = session["user_id"]
 
+    all_classes = posts.get_all_classes()
     classes = []
     for entry in request.form.getlist("classes"):
         if entry:
-            parts = entry.split(":")
-            classes.append((parts[0], parts[1]))
+            class_title, class_value = entry.split(":")
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            classes.append((class_title, class_value))
     posts.add_post(title, description, category, user_id, classes)
 
     return redirect("/")
@@ -110,11 +115,16 @@ def update_post():
     if not category.isalpha():
         abort(403)
 
+    all_classes = posts.get_all_classes()
     classes = []
     for entry in request.form.getlist("classes"):
         if entry:
-            parts = entry.split(":")
-            classes.append((parts[0], parts[1]))
+            class_title, class_value = entry.split(":")
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            classes.append((class_title, class_value))
 
     posts.update_post(post_id, title, description, category, classes)
 
