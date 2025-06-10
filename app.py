@@ -5,6 +5,7 @@ import config
 import db
 import posts
 import users
+import re
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -42,7 +43,8 @@ def show_post(post_id):
     if not post:
         abort(404)
     classes = posts.get_classes(post_id)
-    return render_template("show_post.html", post=post, classes=classes)
+    comments = posts.get_comments(post_id)
+    return render_template("show_post.html", post=post, classes=classes, comments=comments)
 
 @app.route("/new_post")
 def new_post():
@@ -60,7 +62,7 @@ def create_post():
     if not description or len(description) >1000:
         abort(403)
     category = request.form["category"]
-    if not category.isalpha():
+    if not re.search("^[1-9][0-9]{0,4}$", category):
         abort(403)
     user_id = session["user_id"]
 
@@ -77,6 +79,22 @@ def create_post():
     posts.add_post(title, description, category, user_id, classes)
 
     return redirect("/")
+
+@app.route("/create_comment", methods=["POST"])
+def create_comment():
+    require_login()
+    comment = request.form["comment"]
+    if not comment or len(comment) >200:
+        abort(403)
+    post_id = request.form["post_id"]
+    post = posts.get_post(post_id)
+    if not post:
+        abort(404)
+    user_id = session["user_id"]
+
+    posts.add_comment(post_id, user_id, comment)
+
+    return redirect("/post/" + str(post_id))
 
 @app.route("/edit_post/<int:post_id>")
 def edit_post(post_id):
@@ -112,7 +130,7 @@ def update_post():
     if not description or len(description) >1000:
         abort(403)
     category = request.form["category"]
-    if not category.isalpha():
+    if not re.search("^[1-9][0-9]{0,4}$", category):
         abort(403)
 
     all_classes = posts.get_all_classes()

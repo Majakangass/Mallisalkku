@@ -17,8 +17,8 @@
       <textarea name="description" rows="8" cols="60" maxlength="1000" required>{{ post.description }}</textarea>  
     </p>
     <p>
-        Kategoria: <br />
-        <input type="text" name="category" value="{{post.category}}" pattern="^[A-Za-z]+$" required/>
+        Kuukausisäästösumma: <br />
+        <input type="text" name="category" value="{{post.category}}" pattern="[1-9][0-9]{1,4}" required/> €
       </p>    
     <input type="hidden" name="post_id" value="{{ post.id }}" />
     {% for class in all_classes %}
