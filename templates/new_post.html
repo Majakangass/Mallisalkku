@@ -26,12 +26,12 @@
         <select name="classes" required>
           <option value="">(valitse)</option>
         {% for option in classes[class]%}
-        <option value=" {{ class }}:{{ option }}">{{ option }}</option>
+        <option value="{{ class }}:{{ option }}">{{ option }}</option>
         {% endfor %}
         </select>
       </p>
       {% endfor %}
-    <input type="submit" value="Luo postaus" />
+    <input type="submit" value="Luo postaus"/>
   </form>
 </body>
 

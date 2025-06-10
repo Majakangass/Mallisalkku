@@ -81,7 +81,14 @@ def edit_post(post_id):
         abort(404)
     if post["user_id"] != session["user_id"]:
         abort(403)
-    return render_template("edit_post.html", post=post)
+
+    all_classes = posts.get_all_classes()
+    classes = {}
+    for ny_class in all_classes:
+        classes[ny_class] = ""
+    for entry in posts.get_classes(post_id):
+        classes[entry["title"]] = entry["value"]
+    return render_template("edit_post.html", post=post, classes=classes, all_classes=all_classes)
 
 @app.route("/update_post", methods=["POST"])
 def update_post():
@@ -103,7 +110,13 @@ def update_post():
     if not category.isalpha():
         abort(403)
 
-    posts.update_post(post_id, title, description, category)
+    classes = []
+    for entry in request.form.getlist("classes"):
+        if entry:
+            parts = entry.split(":")
+            classes.append((parts[0], parts[1]))
+
+    posts.update_post(post_id, title, description, category, classes)
 
     return redirect("/post/" + str(post_id))
 
