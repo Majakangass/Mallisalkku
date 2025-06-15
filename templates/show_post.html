@@ -18,13 +18,15 @@
     <img src="/image/{{ image.id }}" />
     {% endfor %}
     <p>
-      Kuvaus: {{ post.description }}
+      Salkun kuvaus:<br />{{ post.description }}
     </p>
     <p>
-      Kuukausisäästösumma: {{ post.category }} €
+      Kuukausisäästösumma:<br />
+      {{ post.category }} €
     </p>
     <p>
-        Ilmoittaja: <a href="/user/{{ post.user_id }}">{{ post.username }}</a>
+        Ilmoittaja:<br />
+        <a href="/user/{{ post.user_id }}">{{ post.username }}</a>
     </p>
     {% if classes %}
     <p>
