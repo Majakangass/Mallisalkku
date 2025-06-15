@@ -11,8 +11,12 @@
     <p>
       <a href="/edit_post/{{ post.id }}">Muokkaa</a>
       <a href="/remove_post/{{ post.id }}">Poista</a>
+      <a href="/images/{{ post.id }}">Kuvat</a>
     </p>
     {% endif %}
+    {% for image in images %}
+    <img src="/image/{{ image.id }}" />
+    {% endfor %}
     <p>
       Kuvaus: {{ post.description }}
     </p>
@@ -36,7 +40,7 @@
       <ul>
       {% for comment in comments %}
         <li>{{ comment.comment }}, <a href="/user/{{ comment.user_id }}"> {{ comment.username }}</a></li>
-      {% endfor %}
+        {% endfor %}
       </ul>
     <h2>Uusi kommentti</h2>
     <form action="/create_comment" method="post">

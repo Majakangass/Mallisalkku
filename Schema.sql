@@ -31,3 +31,9 @@ CREATE TABLE post_classes (
     title TEXT,
     value TEXT
 );
+
+CREATE TABLE images (
+    id INTEGER PRIMARY KEY,
+    post_id INTEGER REFERENCES posts,
+    image BLOB
+);
