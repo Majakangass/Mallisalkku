@@ -225,8 +225,7 @@ def remove_post(post_id):
         if "remove" in request.form:
             posts.remove_post(post_id)
             return redirect("/")
-        else:
-            return redirect("/post/" + str(post_id))
+        return redirect("/post/" + str(post_id))
 
 @app.route("/register")
 def register():
@@ -244,8 +243,7 @@ def create():
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
         return "VIRHE: tunnus on jo varattu"
-
-    return "Tunnus luotu"
+    return redirect("/")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -261,8 +259,7 @@ def login():
             session["user_id"] = user_id
             session["username"] = username
             return redirect("/")
-        else:
-            return "VIRHE: väärä tunnus tai salasana"
+        return "VIRHE: väärä tunnus tai salasana"
 
 @app.route("/logout")
 def logout():
