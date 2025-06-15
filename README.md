@@ -16,10 +16,6 @@ Tulossa:
 * Yleisesti pieniä virheitä korjaamaan
 * Käyettävyyttä sekä otsikoiden ja kuvausten loogisuutta tullaan parantamaan
 
-Tässä on suomenkielinen versio käynnistysohjeista, jotka voit lisätä README-tiedostoosi GitHubissa. Tämä malli noudattaa samaa rakennetta kuin esimerkkikuvassa:
-
-Tässä päivitetyt ohjeet ympäristömuuttujilla ja käyttöohjeilla:
-
 ---
 
 ## Asennusohjeet
