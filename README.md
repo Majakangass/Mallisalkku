@@ -82,5 +82,3 @@ http://localhost:5000
 ```
 
 ---
-
-Voit liittää nämä suoraan README-tiedostoosi. Kerro jos haluat lisätä vielä Docker-version tai Windows-käyttöön sovitetun version!
