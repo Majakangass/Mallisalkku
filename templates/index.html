@@ -1,37 +1,13 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Mallisalkku</title>
-</head>
+{% block title %}Mallisalkku{% endblock %}
 
-<body>
-    <h1>Mallisalkku</h1>
+{% block content %}
+<h2>Lisätyt salkut</h2>
 
-    {% if session.username %}
-    <p>
-      Olet kirjautunut nimellä {{ session.username }}
-    </p>
-    {% endif %}
-
-    <p>
-      <a href="/find_post">Etsi postaus</a> |
-      {% if session.user_id %}
-      <a href="/new_post">Uusi postaus</a> |
-      <a href="/logout">Kirjaudu ulos</a>
-      {% else %}
-      <a href="/login">Kirjaudu sisään</a> |
-      <a href="/register">Rekisteröidy</a>
-      {% endif %}
-    </p>
-
-  <h2>Lisätyt salkut</h2>
-
-  <ul>
-    {% for post in posts %}
-    <li><a href="/post/{{ post.id }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
-  <p>
-
-</html>
+<ul>
+  {% for post in posts %}
+  <li><a href="/post/{{ post.id }}">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

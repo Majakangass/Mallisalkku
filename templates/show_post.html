@@ -1,60 +1,51 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>{{ post.title }}</title>
-</head>
+{% block title %}{{ post.title }}{% endblock %}
 
-<body>
-    <h1>{{ post.title }}</h1>
-    {% if session.user_id == post.user_id %}
-    <p>
-      <a href="/edit_post/{{ post.id }}">Muokkaa</a>
-      <a href="/remove_post/{{ post.id }}">Poista</a>
-      <a href="/images/{{ post.id }}">Kuvat</a>
-    </p>
-    {% endif %}
-    {% for image in images %}
-    <img src="/image/{{ image.id }}" />
+{% block content %}
+<h2>{{ post.title }}</h2>
+{% if session.user_id == post.user_id %}
+<p>
+  <a href="/edit_post/{{ post.id }}">Muokkaa</a>
+  <a href="/remove_post/{{ post.id }}">Poista</a>
+  <a href="/images/{{ post.id }}">Kuvat</a>
+</p>
+{% endif %}
+{% for image in images %}
+<img src="/image/{{ image.id }}" />
+{% endfor %}
+<p>
+  Salkun kuvaus:<br />{{ post.description }}
+</p>
+<p>
+  Kuukausisäästösumma:<br />
+  {{ post.category }} €
+</p>
+<p>
+    Ilmoittaja:<br />
+    <a href="/user/{{ post.user_id }}">{{ post.username }}</a>
+</p>
+{% if classes %}
+<p>
+  Luokat:
+  <ul>
+    {% for class in classes %}
+    <li>{{ class.title }}: {{ class.value }}</li>
     {% endfor %}
-    <p>
-      Salkun kuvaus:<br />{{ post.description }}
-    </p>
-    <p>
-      Kuukausisäästösumma:<br />
-      {{ post.category }} €
-    </p>
-    <p>
-        Ilmoittaja:<br />
-        <a href="/user/{{ post.user_id }}">{{ post.username }}</a>
-    </p>
-    {% if classes %}
-    <p>
-      Luokat:
-      <ul>
-        {% for class in classes %}
-        <li>{{ class.title }}: {{ class.value }}</li>
-        {% endfor %}
-      </ul>
-    </p>
-    {% endif %}
-    <h2>Kommentit</h2>
-      <ul>
-      {% for comment in comments %}
-        <li>{{ comment.comment }}, <a href="/user/{{ comment.user_id }}"> {{ comment.username }}</a></li>
-        {% endfor %}
-      </ul>
-    <h2>Uusi kommentti</h2>
-    <form action="/create_comment" method="post">
-      Kommentti: <br />
-      <textarea type="text" name="comment" rows="8" cols="60" maxlength="200" required></textarea>
-      <input type="hidden" name="post_id" value="{{ post.id }}">
-      <input type="submit" value="Julkaise"/>
-
-    </form>
-    <p>
-        <a href="/">Takaisin</a>
-    </p>
-</body>
-
-</html>
+  </ul>
+</p>
+{% endif %}
+<h3>Kommentit</h3>
+  <ul>
+  {% for comment in comments %}
+    <li>{{ comment.comment }}, <a href="/user/{{ comment.user_id }}"> {{ comment.username }}</a></li>
+    {% endfor %}
+  </ul>
+<h3>Uusi kommentti</h3>
+<form action="/create_comment" method="post">
+  Kommentti: <br />
+  <textarea type="text" name="comment" rows="8" cols="60" maxlength="200" required></textarea>
+  <input type="hidden" name="post_id" value="{{ post.id }}">
+  <input type="submit" value="Julkaise"/>
+</form>
+{% endblock %}
