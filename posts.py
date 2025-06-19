@@ -11,8 +11,6 @@ def get_all_classes():
 
     return dict(classes)
 
-    return classes
-
 def add_post(title, description, category, user_id, classes):
     sql = """INSERT INTO posts (title, description, category, user_id) VALUES (?, ?, ?, ?)"""
     db.execute(sql, [title, description, category, user_id])
