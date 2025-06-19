@@ -55,7 +55,12 @@ def get_classes(post_id):
     return db.query(sql, [post_id])
 
 def get_posts():
-    sql = "SELECT id, title FROM posts ORDER BY id DESC"
+    sql = """SELECT posts.id, posts.title, users.id user_id, users.username,
+                COUNT(comments.id) comment_count
+            FROM posts JOIN users ON posts.user_id = users.id
+                       LEFT JOIN comments ON posts.id = comments.post_id
+            GROUP BY posts.id
+            ORDER BY posts.id DESC"""
     return db.query(sql)
 
 def get_post(post_id):
