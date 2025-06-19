@@ -1,14 +1,15 @@
 import db
+from collections import defaultdict
 
 def get_all_classes():
     sql = """SELECT title, value FROM classes ORDER BY id"""
     result = db.query(sql)
 
-    classes = {}
-    for title, value in result:
-        classes[title] = []
+    classes = defaultdict(list)
     for title, value in result:
         classes[title].append(value)
+
+    return dict(classes)
 
     return classes
 
@@ -30,9 +31,10 @@ def add_comment(post_id, user_id, comment):
 
 def get_comments(post_id):
     sql = """SELECT comments.comment, users.id user_id, users.username
-            FROM comments, users
-            WHERE comments.post_id = ? AND comments.user_id = users.id
-            ORDER BY comments.id DESC"""
+        FROM comments
+        JOIN users ON comments.user_id = users.id
+        WHERE comments.post_id = ?
+        ORDER BY comments.id DESC"""
     return db.query(sql, [post_id])
 
 def get_images(post_id):
