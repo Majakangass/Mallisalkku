@@ -3,7 +3,10 @@
 {% block title %}Postauksen poisto{% endblock %}
 
 {% block content %}
-<h2>Postauksen poisto</h2>
+<h2>{{ post.title }}</h2>
+<p>
+  <h3>Postauksen poisto</h3>
+</p>
 <p>Ilmoitus: {{ post.title }} </p>
 <p>Haluatko varmasti poistaa tämän postauksen?</p>
 <form action="/remove_post/{{ post.id }}" method="post">
