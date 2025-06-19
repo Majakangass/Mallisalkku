@@ -3,8 +3,19 @@
 {% block title %}Mallisalkku{% endblock %}
 
 {% block content %}
-<h2>Lisätyt salkut</h2>
+<h2>Käyttäjälle</h2>
+Tervetuloa mukaan uniikkiin yhteisöön, jonka tarkoituksena on jakaa vinkkejä, mielipiteitä, näkökulmia sekä kokemuksia sijoittamisesta. <br />
+<br />
+Kirjautumatta pystyt:
+<ul>
+  <li>Etsimään sekä seuraamaan postauksia sekä niihin liittyviä kommentteja</li>
+</ul>
+Kirjautuessa pystyt tämän lisäksi:
+<ul>
+  <li>Osallistua keskusteluun sekä julkaista omia postauksia aiheeseen liittyen</li>
+</ul>
 
+<h3>Lisätyt salkut</h3>
 {% for post in posts %}
 <div class="post">
   <a href="/post/{{ post.id }}">{{ post.title }}</a> <br />
