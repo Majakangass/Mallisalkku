@@ -22,6 +22,8 @@ def add_post(title, description, category, user_id, classes):
     for title, value in classes:
         db.execute(sql, [post_id, title, value])
 
+    return post_id
+
 def add_comment(post_id, user_id, comment):
     sql = """INSERT INTO comments (post_id, user_id, comment) VALUES (?, ?, ?)"""
     db.execute(sql, [post_id, user_id, comment])

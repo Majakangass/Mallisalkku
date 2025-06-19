@@ -87,9 +87,9 @@ def create_post():
             if class_value not in all_classes[class_title]:
                 abort(403)
             classes.append((class_title, class_value))
-    posts.add_post(title, description, category, user_id, classes)
+    post_id = posts.add_post(title, description, category, user_id, classes)
 
-    return redirect("/")
+    return redirect("/post/" + str(post_id))
 
 @app.route("/create_comment", methods=["POST"])
 def create_comment():
