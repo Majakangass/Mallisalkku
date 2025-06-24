@@ -15,7 +15,7 @@
 <img src="/image/{{ image.id }}" />
 {% endfor %}
 <p>
-  Salkun kuvaus:<br />{{ post.description }}
+  Salkun kuvaus:<br />{{ post.description | show_lines }}
 </p>
   <ul>
   <li>Kuukausisäästösumma: {{ post.category }} €</li>
