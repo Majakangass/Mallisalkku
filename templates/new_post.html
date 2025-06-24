@@ -29,6 +29,7 @@
     </select>
   </p>
   {% endfor %}
-<input type="submit" value="Luo postaus"/>
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+  <input type="submit" value="Luo postaus"/>
 </form>
 {% endblock %}
