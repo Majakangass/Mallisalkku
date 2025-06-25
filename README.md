@@ -1,80 +1,37 @@
 # Mallisalkku
 
+## Sovelluksen toiminnot
 
-* Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään sovellukseen.
-* Käyttäjä pystyy lisäämään sovellukseen omia sijoitussalkkuja. Lisäksi käyttäjä pystyy muokkaamaan ja poistamaan lisäämiään sijoitussalkkuja.
-* Käyttäjä näkee sovellukseen lisätyt sijoitussalkut. Käyttäjä näkee sekä itse lisäämänsä että muiden käyttäjien lisäämät sijoitussalkut.
-* Käyttäjä pystyy etsimään sijoitussalkkuja hakusanalla. Käyttäjä pystyy hakemaan sekä itse lisäämiään että muiden käyttäjien lisäämiä sijoitussalkkuja.
-* Sovelluksessa on käyttäjäsivut, jotka näyttävät jokaisen käyttäjän lisäämät sijoitussalkut.
-* Käyttäjä pystyy valitsemaan sijoitussalkulle useamman luokittelun sekä lisäämään, poistamaan sekä muokkaamaan kuvia omissa postauksissa.
+* Käyttäjä pystyy luomaan käyttäjän ja kirjautumaan sisään sovellukseen.
+* Käyttäjä pystyy lisäämään sovellukseen uusia sijoitussalkkuja.
+  * Käyttäjä pystyy muokkaamaan ja poistamaan lisäämiään sijoitussalkkuja.
+* Käyttäjä näkee sovellukseen lisätyt sijoitussalkut.
+  * Käyttäjä näkee omat ja muiden käyttäjien lisäämät sijoitussalkut.
+* Käyttäjä pystyy etsimään sijoitussalkkuja hakusanalla.
+  * Käyttäjä pystyy hakemaan omia ja muiden käyttäjien lisäämiä sijoitussalkkuja.
+* Sovelluksessa on käyttäjäsivut, jotka näyttävät käyttäjien lisäämät sijoitussalkut.
+* Käyttäjä pystyy valitsemaan sijoitussalkulle useamman luokittelun.
+* Käyttäjä pystyy lisäämään kuvia omiin postauksiinsa.
+  * Käyttäjä pystyy myös poistamaan kuvia omista postauksistaan.
 * Käyttäjä pystyy kommentoimaan omia sekä muiden käyttäjien julkaisuja.
 * Sovelluksessa on pääasiallisen tietokohteen (sijoitussalkun) lisäksi toissijainen tietokohde (kommentointi), joka täydentää pääasiallista tietokohdetta.
 
-Tulossa:
-
-* Ulkoasua tullaan yhtenäistämään
-* Yleisesti pieniä virheitä korjaamaan
-* Käyettävyyttä sekä otsikoiden ja kuvausten loogisuutta tullaan parantamaan
-
 ---
 
-## Asennusohjeet
-
-### Luo tietokanta:
-
-```bash
-$ sqlite3 database.db < schema.sql
+## Sovelluksen asennusohjeet
+### Asenna flask -kirjasto:
 ```
-
-### Alusta tietokanta:
-
-```bash
-$ sqlite3 database.db < init.sql
-```
-
-### Luo virtuaaliympäristö:
-
-```bash
-$ python3 -m venv venv
-```
-
-### Käynnistä virtuaaliympäristö:
-
-```bash
-$ source venv/bin/activate
-```
-
-### Asenna tarvittavat kirjastot (esim. Flask):
-
-```bash
 $ pip install flask
 ```
 
-> Vaihtoehtoisesti, jos käytössä on `requirements.txt`:
->
-> ```bash
-> $ pip install -r requirements.txt
-> ```
-
-### Aseta ympäristömuuttujat:
-
-```bash
-$ export FLASK_APP=app.py
-$ export FLASK_ENV=development
+### Luo sekä alusta tietokanta:
+```
+$ sqlite3 database.db < schema.sql
+$ sqlite3 database.db < init.sql
 ```
 
 ### Käynnistä sovellus:
-
-```bash
+```
 $ flask run
 ```
-
-### Sovelluksen käyttö:
-
-Kun palvelin on käynnissä, voit avata sovelluksen selaimessa osoitteessa:
-
-```
-http://localhost:5000
-```
-
 ---
