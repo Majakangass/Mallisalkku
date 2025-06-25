@@ -6,22 +6,22 @@
 <h2>Uusi postaus</h2>
 <form action="/create_post" method="post">
 <p>
-  Otsikko: <br />
-  <input type="text" name="title" maxlength="50" required/>
+  <label for="title">Otsikko</label>:<br />
+  <input type="text" name="title" id="title" maxlength="50" required/>
 </p>
 <p>
-  Salkun kuvaus: <br />
+  <label for="description">Kuvaus salkusta</label>:<br />
   Säästötavoite, säästöaika, riskipitoisuus, instrumenttien määrä, maantieteellinen hajautus <br />
-  <textarea name="description" rows="8" cols="60" maxlength="1000" required></textarea>  
+  <textarea name="description" id="description" rows="8" cols="60" maxlength="1000" required></textarea>  
 </p>
 <p>
-    Kuukausisäästösumma: <br />
-    <input type="text" name="category" pattern="[1-9][0-9]{1,4}" required/> €
+  <label for="category">Kuukausisäästösumma</label>:<br />
+    <input type="text" name="category" id="category" pattern="[1-9][0-9]{1,4}" required/> €
   </p>
   {% for class in classes %}
   <p>
-    {{ class }}: <br />
-    <select name="classes" required>
+    <label for="class{{ class }}">{{ class }}</label>: <br />
+    <select name="classes" id="class{{ class }}" required>
       <option value="">(valitse)</option>
     {% for option in classes[class]%}
     <option value="{{ class }}:{{ option }}">{{ option }}</option>
