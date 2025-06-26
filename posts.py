@@ -18,8 +18,8 @@ def add_post(title, description, category, user_id, classes):
     post_id = db.last_insert_id()
 
     sql = """INSERT INTO post_classes (post_id, title, value) VALUES (?, ?, ?)"""
-    for title, value in classes:
-        db.execute(sql, [post_id, title, value])
+    for class_title, class_value in classes:
+        db.execute(sql, [post_id, class_title, class_value])
 
     return post_id
 
@@ -89,8 +89,8 @@ def update_post(post_id, title, description, category, classes):
     db.execute(sql, [post_id])
 
     sql = """INSERT INTO post_classes (post_id, title, value) VALUES (?, ?, ?)"""
-    for title, value in classes:
-        db.execute(sql, [post_id, title, value])
+    for class_title, class_value in classes:
+        db.execute(sql, [post_id, class_title, class_value])
 
 def remove_post(post_id):
     sql = """DELETE FROM post_classes WHERE post_id = ?"""

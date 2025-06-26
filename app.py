@@ -7,7 +7,6 @@ from flask import abort, flash, make_response, redirect, render_template, reques
 import markupsafe
 
 import config
-import db
 import posts
 import users
 
@@ -42,8 +41,8 @@ def show_user(user_id):
     user = users.get_user(user_id)
     if not user:
         abort(404)
-    posts = users.get_posts(user_id)
-    return render_template("show_user.html", user=user, posts=posts)
+    user_posts = users.get_posts(user_id)
+    return render_template("show_user.html", user=user, posts=user_posts)
 
 @app.route("/find_post")
 def find_post():
@@ -63,7 +62,8 @@ def show_post(post_id):
     classes = posts.get_classes(post_id)
     comments = posts.get_comments(post_id)
     images = posts.get_images(post_id)
-    return render_template("show_post.html", post=post, classes=classes, comments=comments, images=images)
+    return render_template("show_post.html", post=post,
+        classes=classes, comments=comments, images=images)
 
 @app.route("/image/<int:image_id>")
 def show_image(image_id):
@@ -286,7 +286,7 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        
+
         user_id = users.check_login(username, password)
         if user_id:
             session["user_id"] = user_id
