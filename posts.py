@@ -105,7 +105,7 @@ def remove_post(post_id):
 def find_posts(query):
     sql = """SELECT id, title
             FROM posts
-            WHERE title LIKE ? OR description LIKE ?
+            WHERE title LIKE ? OR description LIKE ? OR category LIKE ?
             ORDER BY id DESC"""
     like = "%" + query + "%"
-    return db.query(sql, [like, like])
+    return db.query(sql, [like, like, like])
