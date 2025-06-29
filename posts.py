@@ -69,8 +69,7 @@ def get_post(post_id):
     sql = """SELECT posts.id, posts.title, posts.description,
                     posts.category, users.id user_id, users.username
                 FROM posts, users
-                WHERE posts.user_id = users.id AND
-                            posts.id = ?"""
+                WHERE posts.user_id = users.id AND posts.id = ?"""
     result = db.query(sql, [post_id])
     return result[0] if result else None
 
@@ -105,3 +104,20 @@ def find_posts(query):
                 ORDER BY id DESC"""
     like = "%" + query + "%"
     return db.query(sql, [like, like, like])
+
+def get_posts_index(page, page_size):
+    sql = """SELECT posts.id, posts.title, COUNT(posts.id) total, users.id user_id, users.username,
+                    COUNT(comments.id) comment_count
+                FROM posts JOIN users ON posts.user_id = users.id
+                    LEFT JOIN comments ON posts.id = comments.post_id
+                GROUP BY posts.id
+                ORDER BY posts.id DESC
+                LIMIT ? OFFSET ?"""
+
+    limit = page_size
+    offset = page_size * (page - 1)
+    return db.query(sql, [limit, offset])
+
+def post_count():
+    sql = "SELECT COUNT(*) FROM posts"
+    return db.query(sql)[0][0]

@@ -22,5 +22,15 @@ Kirjautuessa pystyt tämän lisäksi:
   Tekijä: <a href="/user/{{ post.user_id }}">{{ post.username }}</a> <br />
   Kommentteja: {{ post.comment_count }}
 </div>
-  {% endfor %}
+{% endfor %}
+<p>
+{% if page > 1 %}
+  <a href="/{{ page - 1 }}">Edellinen</a>
+{% endif %}
+Sivu {{ page }} / {{ page_count }}
+{% if page < page_count %}
+  <a href="/{{ page + 1 }}">Seuraava</a>
+{% endif %}
+</p>
+<hr />
 {% endblock %}
