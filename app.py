@@ -257,7 +257,6 @@ def register():
 
 @app.route("/create", methods=["POST"])
 def create():
-    check_csrf()
     username = request.form["username"]
     password1 = request.form["password1"]
     password2 = request.form["password2"]
@@ -276,6 +275,7 @@ def create():
     except sqlite3.IntegrityError:
         flash("VIRHE: tunnus on jo varattu")
         return redirect("/register")
+    flash("Tunnus luotu! Voit nyt kirjautua sisään")
     return redirect("/")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -292,6 +292,7 @@ def login():
             session["user_id"] = user_id
             session["username"] = username
             session["csrf_token"] = secrets.token_hex(16)
+            flash("Kirjautuminen onnistui")
             return redirect("/")
         flash("VIRHE: väärä tunnus tai salasana")
         return redirect("/login")
