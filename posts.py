@@ -29,10 +29,10 @@ def add_comment(post_id, user_id, comment):
 
 def get_comments(post_id):
     sql = """SELECT comments.comment, users.id user_id, users.username
-        FROM comments
-        JOIN users ON comments.user_id = users.id
-        WHERE comments.post_id = ?
-        ORDER BY comments.id DESC"""
+                FROM comments
+                    JOIN users ON comments.user_id = users.id
+                WHERE comments.post_id = ?
+                ORDER BY comments.id DESC"""
     return db.query(sql, [post_id])
 
 def get_images(post_id):
@@ -58,31 +58,27 @@ def get_classes(post_id):
 
 def get_posts():
     sql = """SELECT posts.id, posts.title, users.id user_id, users.username,
-                COUNT(comments.id) comment_count
-            FROM posts JOIN users ON posts.user_id = users.id
-                       LEFT JOIN comments ON posts.id = comments.post_id
-            GROUP BY posts.id
-            ORDER BY posts.id DESC"""
+                    COUNT(comments.id) comment_count
+                FROM posts JOIN users ON posts.user_id = users.id
+                    LEFT JOIN comments ON posts.id = comments.post_id
+                GROUP BY posts.id
+                ORDER BY posts.id DESC"""
     return db.query(sql)
 
 def get_post(post_id):
-    sql = """SELECT posts.id,
-                    posts.title,
-                    posts.description,
-                    posts.category,
-                    users.id user_id,
-                    users.username
+    sql = """SELECT posts.id, posts.title, posts.description,
+                    posts.category, users.id user_id, users.username
                 FROM posts, users
                 WHERE posts.user_id = users.id AND
-                        posts.id = ?"""
+                            posts.id = ?"""
     result = db.query(sql, [post_id])
     return result[0] if result else None
 
 def update_post(post_id, title, description, category, classes):
     sql = """UPDATE posts SET title = ?,
-                                description = ?,
-                                category = ?
-                                WHERE id = ?"""
+                    description = ?,
+                    category = ?
+                WHERE id = ?"""
     db.execute(sql, [title, description, category, post_id])
 
     sql = """DELETE FROM post_classes WHERE post_id = ?"""
@@ -104,8 +100,8 @@ def remove_post(post_id):
 
 def find_posts(query):
     sql = """SELECT id, title
-            FROM posts
-            WHERE title LIKE ? OR description LIKE ? OR category LIKE ?
-            ORDER BY id DESC"""
+                FROM posts
+                WHERE title LIKE ? OR description LIKE ? OR category LIKE ?
+                ORDER BY id DESC"""
     like = "%" + query + "%"
     return db.query(sql, [like, like, like])
