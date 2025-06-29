@@ -59,6 +59,7 @@ def show_post(post_id):
     post = posts.get_post(post_id)
     if not post:
         abort(404)
+
     classes = posts.get_classes(post_id)
     comments = posts.get_comments(post_id)
     images = posts.get_images(post_id)
@@ -78,6 +79,7 @@ def show_image(image_id):
 @app.route("/new_post")
 def new_post():
     require_login()
+
     classes = posts.get_all_classes()
     return render_template("new_post.html", classes=classes)
 
@@ -85,19 +87,23 @@ def new_post():
 def create_post():
     require_login()
     check_csrf()
+
     title = request.form["title"]
     if not title or len(title) > 50:
         abort(403)
+
     description = request.form["description"]
     if not description or len(description) >1000:
         abort(403)
+
     category = request.form["category"]
     if not re.search("^[1-9][0-9]{0,4}$", category):
         abort(403)
-    user_id = session["user_id"]
 
+    user_id = session["user_id"]
     all_classes = posts.get_all_classes()
     classes = []
+
     for entry in request.form.getlist("classes"):
         if entry:
             class_title, class_value = entry.split(":")
@@ -106,40 +112,45 @@ def create_post():
             if class_value not in all_classes[class_title]:
                 abort(403)
             classes.append((class_title, class_value))
-    post_id = posts.add_post(title, description, category, user_id, classes)
 
+    post_id = posts.add_post(title, description, category, user_id, classes)
     return redirect("/post/" + str(post_id))
 
 @app.route("/create_comment", methods=["POST"])
 def create_comment():
     require_login()
     check_csrf()
+
     comment = request.form["comment"]
     if not comment or len(comment) >200:
         abort(403)
+
     post_id = request.form["post_id"]
     post = posts.get_post(post_id)
     if not post:
         abort(404)
+
     user_id = session["user_id"]
-
     posts.add_comment(post_id, user_id, comment)
-
     return redirect("/post/" + str(post_id))
 
 @app.route("/edit_post/<int:post_id>")
 def edit_post(post_id):
     require_login()
+
     post = posts.get_post(post_id)
     if not post:
         abort(404)
+
     if post["user_id"] != session["user_id"]:
         abort(403)
 
     all_classes = posts.get_all_classes()
     classes = {}
+
     for ny_class in all_classes:
         classes[ny_class] = ""
+
     for entry in posts.get_classes(post_id):
         classes[entry["title"]] = entry["value"]
     return render_template("edit_post.html", post=post, classes=classes, all_classes=all_classes)
@@ -147,24 +158,27 @@ def edit_post(post_id):
 @app.route("/images/<int:post_id>")
 def edit_images(post_id):
     require_login()
+
     post = posts.get_post(post_id)
     if not post:
         abort(404)
+
     if post["user_id"] != session["user_id"]:
         abort(403)
 
     images = posts.get_images(post_id)
-
     return render_template("images.html", post=post, images=images)
 
 @app.route("/add_image", methods=["POST"])
 def add_image():
     require_login()
     check_csrf()
+
     post_id = request.form["post_id"]
     post = posts.get_post(post_id)
     if not post:
         abort(404)
+
     if post["user_id"] != session["user_id"]:
         abort(403)
 
@@ -185,41 +199,47 @@ def add_image():
 def remove_images():
     require_login()
     check_csrf()
+
     post_id = request.form["post_id"]
     post = posts.get_post(post_id)
     if not post:
         abort(404)
+
     if post["user_id"] != session["user_id"]:
         abort(403)
 
     for image_id in request.form.getlist("image_id"):
         posts.remove_image(post_id, image_id)
-
     return redirect("/images/" + str(post_id))
 
 @app.route("/update_post", methods=["POST"])
 def update_post():
     require_login()
     check_csrf()
+
     post_id = request.form["post_id"]
     post = posts.get_post(post_id)
     if not post:
         abort(404)
+
     if post["user_id"] != session["user_id"]:
         abort(403)
 
     title = request.form["title"]
     if not title or len(title) > 50:
         abort(403)
+
     description = request.form["description"]
     if not description or len(description) >1000:
         abort(403)
+
     category = request.form["category"]
     if not re.search("^[1-9][0-9]{0,4}$", category):
         abort(403)
 
     all_classes = posts.get_all_classes()
     classes = []
+
     for entry in request.form.getlist("classes"):
         if entry:
             class_title, class_value = entry.split(":")
@@ -230,17 +250,19 @@ def update_post():
             classes.append((class_title, class_value))
 
     posts.update_post(post_id, title, description, category, classes)
-
     return redirect("/post/" + str(post_id))
 
 @app.route("/remove_post/<int:post_id>", methods=["GET", "POST"])
 def remove_post(post_id):
     require_login()
+
     post = posts.get_post(post_id)
     if not post:
         abort(404)
+
     if post["user_id"] != session["user_id"]:
         abort(403)
+
     if request.method == "GET":
         return render_template("remove_post.html", post=post)
 
@@ -260,12 +282,15 @@ def create():
     username = request.form["username"]
     password1 = request.form["password1"]
     password2 = request.form["password2"]
+
     if password1 != password2:
         flash("VIRHE: salasanat eivät ole samat")
         return redirect("/register")
+
     if password1 == "" or password2 == "":
         flash("VIRHE: lisää salasana")
         return redirect("/register")
+
     if username == "":
         flash("VIRHE: lisää käyttäjätunnus")
         return redirect("/register")
@@ -275,6 +300,7 @@ def create():
     except sqlite3.IntegrityError:
         flash("VIRHE: tunnus on jo varattu")
         return redirect("/register")
+
     flash("Tunnus luotu! Voit nyt kirjautua sisään")
     return redirect("/")
 
@@ -294,11 +320,13 @@ def login():
             session["csrf_token"] = secrets.token_hex(16)
             flash("Kirjautuminen onnistui")
             return redirect("/")
+    
         flash("VIRHE: väärä tunnus tai salasana")
         return redirect("/login")
 
 @app.route("/logout")
 def logout():
-    del session["user_id"]
-    del session["username"]
+    if "user_id" in session:
+        del session["user_id"]
+        del session["username"]
     return redirect("/")
