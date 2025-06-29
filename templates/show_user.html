@@ -10,7 +10,7 @@
 <h3>Ilmoitukset</h3>
 <ul>
     {% for post in posts %}
-    <li><a href="/post/{{ post.id }}">{{ post.title }}</a></li>
+        <li><a href="/post/{{ post.id }}">{{ post.title }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}

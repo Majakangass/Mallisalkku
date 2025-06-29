@@ -7,7 +7,7 @@
 <p>
   <h3>Postauksen muokkaus</h3>
 </p>
-<form action="/update_post" method="post">
+  <form action="/update_post" method="post">
 <p>
   <label for="title">Otsikko</label>:<br />
   <input type="text" name="title" id="title" value="{{ post.title }}" maxlength="50" required/>
@@ -22,19 +22,19 @@
   </p>    
 <input type="hidden" name="post_id" value="{{ post.id }}" />
 {% for class in all_classes %}
-<p>
-  <label for="class{{ class }}">{{ class }}</label>: <br />
-  <select name="classes" id="class{{ class }}" required>
-    <option value="">(valitse)</option>
-  {% for option in all_classes[class] %}
-    {% if classes[class] == option %}
-    <option value="{{ class }}:{{ option }}" selected>{{ option }}</option>
-    {% else %}
-    <option value="{{ class }}:{{ option }}">{{ option }}</option>
-    {% endif %}
-  {% endfor %}
-  </select>
-</p>
+  <p>
+    <label for="class{{ class }}">{{ class }}</label>: <br />
+    <select name="classes" id="class{{ class }}" required>
+      <option value="">(valitse)</option>
+    {% for option in all_classes[class] %}
+      {% if classes[class] == option %}
+        <option value="{{ class }}:{{ option }}" selected>{{ option }}</option>
+      {% else %}
+        <option value="{{ class }}:{{ option }}">{{ option }}</option>
+      {% endif %}
+    {% endfor %}
+    </select>
+  </p>
 {% endfor %}
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
 <input type="submit" value="Päivitä postaus" />

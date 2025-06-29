@@ -7,10 +7,10 @@
 
 <form action="/find_post" method="get">
 <p>
-<label for="query">Hakusana</label>:
-<input type="text" name="query" id="query" value="{{ query }}">
+    <label for="query">Hakusana</label>:
+    <input type="text" name="query" id="query" value="{{ query }}">
 </p>
-<input type="submit" value="Lähetä">
+    <input type="submit" value="Lähetä">
 </form>
 
 {% if query %}
@@ -18,7 +18,7 @@
 
 <ul>
     {% for post in results %}
-    <li><a href="/post/{{ post.id }}">{{ post.title }}</a></li>
+        <li><a href="/post/{{ post.id }}">{{ post.title }}</a></li>
     {% endfor %}
 </ul>
 {% endif %}

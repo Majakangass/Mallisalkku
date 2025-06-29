@@ -12,9 +12,9 @@
 </p>
 <form action="/remove_images" method="post">
     {% for image in images %}
-    <input type="checkbox" name="image_id" value="{{ image.id }}">
-    <img src="/image/{{ image.id }}" alt="Ilmoituksen kuva" />
-    <br />
+        <input type="checkbox" name="image_id" value="{{ image.id }}">
+        <img src="/image/{{ image.id }}" alt="Ilmoituksen kuva" />
+        <br />
     {% endfor %}
     <input type="hidden" name="post_id" value="{{ post.id }}">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
@@ -23,14 +23,14 @@
 </p>
 </form>
 <h4>Lisää uusi kuva</h4>
-<form action="/add_image" method="post" enctype="multipart/form-data">
-    <p>
-        <label for="image">Kuva</label>: <input type="file" name="image" id="image" accept=".png" />
-    </p>
-    <input type="hidden" name="post_id" value="{{ post.id }}">
-    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
-    <input type="submit" value="Lähetä" />
-</form>
+    <form action="/add_image" method="post" enctype="multipart/form-data">
+        <p>
+            <label for="image">Kuva</label>: <input type="file" name="image" id="image" accept=".png" />
+        </p>
+        <input type="hidden" name="post_id" value="{{ post.id }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
+        <input type="submit" value="Lähetä" />
+    </form>
 <p>
     <a href="/post/{{ post.id }}"> Palaa takaisin</a>
 </p>

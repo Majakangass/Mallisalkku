@@ -24,7 +24,7 @@
     <select name="classes" id="class{{ class }}" required>
       <option value="">(valitse)</option>
     {% for option in classes[class]%}
-    <option value="{{ class }}:{{ option }}">{{ option }}</option>
+      <option value="{{ class }}:{{ option }}">{{ option }}</option>
     {% endfor %}
     </select>
   </p>
