@@ -19,6 +19,8 @@ CREATE TABLE comments (
     comment TEXT
 );
 
+CREATE INDEX idx_post_comments ON comments(post_id);
+
 CREATE TABLE classes (
     id INTEGER PRIMARY KEY,
     title TEXT,
